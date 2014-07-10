@@ -15,18 +15,12 @@ canvas.height = window.innerHeight;
 var ctx = canvas.getContext('2d');
 
 
-var audioctx = new webkitAudioContext();//webkit browsers only
-var osc = audioctx.createOscillator();
-var compressor = audioctx.createDynamicsCompressor();
-var reverb = audioctx.createConvolver();
-var volume = audioctx.createGainNode();
+var audioctx = new webkitAudioContext(),//webkit browsers only
+osc = audioctx.createOscillator();
+
 osc.type = 0; // sine wave
 osc.frequency.value = 320;
-osc.connect(compressor);
-compressor.connect(reverb);
-reverb.connect(volume);
-volume.connect(audioctx.destination);
-
+osc.connect(audioctx.destination);
 
 var playing = false;
 
@@ -77,7 +71,7 @@ function tapHandler() {
         osc = audioctx.createOscillator();
         osc.type = 0; // sine wave
         osc.frequency.value = 320;
-        osc.connect(compressor);
+        osc.connect(audioctx.destination);
 
         osc.noteOn(0);
 
